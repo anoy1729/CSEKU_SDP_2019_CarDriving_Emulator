@@ -7,6 +7,7 @@ public class SimpleCarController : MonoBehaviour {
 	public void GetInput()
 	{
 		m_horizontalInput = Input.GetAxis("Mouse X");
+
 	}
 
 	private void Steer()
@@ -20,23 +21,16 @@ public class SimpleCarController : MonoBehaviour {
 
 	private void Accelerate()
 	{
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {if (rearPassengerW.motorTorque <250)
-					{
-						rearDriverW.motorTorque =rearDriverW.motorTorque +  motorForce;
-            rearPassengerW.motorTorque =rearPassengerW.motorTorque +  motorForce;
-         }
-				 else
-				 {
-					  rearDriverW.motorTorque = rearDriverW.motorTorque ;
-            rearPassengerW.motorTorque = rearPassengerW.motorTorque;
-					}
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            rearDriverW.motorTorque = m_verticalInput + motorForce;
+            rearPassengerW.motorTorque = m_verticalInput + motorForce;
         }
     }
 
     private void Brake()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKey(KeyCode.Mouse1))
         {
             rearDriverW.brakeTorque = m_brake;
             rearPassengerW.brakeTorque = m_brake;
@@ -80,8 +74,9 @@ public class SimpleCarController : MonoBehaviour {
 	}
 
 	private float m_horizontalInput;
-	private float m_steeringAngle;
-    private float m_brake = 500000;
+    private float m_verticalInput;
+    private float m_steeringAngle;
+    private float m_brake = 10000;
 
 	public WheelCollider frontDriverW, frontPassengerW;
 	public WheelCollider rearDriverW, rearPassengerW;
